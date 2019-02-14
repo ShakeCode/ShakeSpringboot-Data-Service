@@ -1,0 +1,47 @@
+spring:
+    datasource:
+        master:
+            url: jdbc:mysql://127.0.0.1:3306/stu_learning_system?useUnicode=true&characterEncoding=utf8&useSSL=false
+            username: root
+            password: root
+            driver-class-name: com.mysql.jdbc.Driver
+            filters: stat
+            maxActive: 300
+            initialSize: 5
+            maxWait: 60000
+            minIdle: 5
+            timeBetweenEvictionRunsMillis: 60000
+            minEvictableIdleTimeMillis: 300000
+            validationQuery: select 'x'
+            testWhileIdle: true
+            testOnBorrow: false
+            testOnReturn: false
+            poolPreparedStatements: true
+            maxOpenPreparedStatements: 20
+
+        custer:
+            url: jdbc:mysql://127.0.0.1:3306/onlinemusic?useUnicode=true&characterEncoding=utf8&useSSL=false
+            username: root
+            password: root
+            driver-class-name: com.mysql.jdbc.Driver
+            filters: stat
+            maxActive: 300
+            initialSize: 5
+            maxWait: 60000
+            minIdle: 5
+            timeBetweenEvictionRunsMillis: 60000
+            minEvictableIdleTimeMillis: 300000
+            validationQuery: select 'x'
+            testWhileIdle: true
+            testOnBorrow: false
+            testOnReturn: false
+            poolPreparedStatements: true
+            maxOpenPreparedStatements: 20
+    rabbitmq:
+        host: 127.0.0.1
+        port: 5672
+        username: guest
+        password: guest
+
+
+

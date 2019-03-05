@@ -4,7 +4,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.*;
 
-public class concurrentTe {
+public class ConcurrentTe {
 
     static volatile int count;
 

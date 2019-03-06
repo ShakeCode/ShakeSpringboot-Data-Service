@@ -1,3 +1,7 @@
+server:
+  context-path: /data
+#  port: 80810
+  
 spring:
     datasource:
         master:
@@ -37,6 +41,9 @@ spring:
             testOnReturn: false
             poolPreparedStatements: true
             maxOpenPreparedStatements: 20
+    jackson:
+        date-format: yyyy-MM-dd HH:mm:ss
+        time-zone: GMT+8
     rabbitmq:
         host: 127.0.0.1
         port: 5672

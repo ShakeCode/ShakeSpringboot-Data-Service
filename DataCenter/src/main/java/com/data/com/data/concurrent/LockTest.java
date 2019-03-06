@@ -1,6 +1,5 @@
 package com.data.com.data.concurrent;
 
-import java.util.Random;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -11,17 +10,22 @@ public class LockTest {
     private Object data = null;//共享数据，只能有一个线程能写该数据，但可以有多个线程同时读该数据。
     private ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
 
+    private Object obj = new Object();
+
+    private byte[] bytes = new byte[0];   //经济型
+
     /*  java的对象锁和类锁：java的对象锁和类锁在锁的概念上基本上和内置锁是一致的，但是，两个锁实际是有很大的区别的，对象锁是用于对象实例方法，或者一个对象实例上的，类锁是用于类的静态方法或者一个类的class对象上的。我们知道，类的对象实例可以有很多个！！！，但是每个类只有一个class对象，所以不同对象实例的对象锁是互不干扰的，但是每个类只有一个类锁！！！！。但是有一点必须注意的是，其实类锁只是一个概念上的东西，并不是真实存在的，它只是用来帮助我们理解锁定实例方法和静态方法的区别的。*/
 
     public static void main(String[] args) {
         LockTest lockT = new LockTest();
-/*        new Thread(() -> {
+        new Thread(() -> {
             //静态同步方法，同步方法同时执行/，对象锁与类锁作用不同域，所以会出现交替进行
 //            lockT.syncA();
 //            lockT.testLock();
 //            lockT.syncB();
 //            lockT.staticSync();
-            lockT.syncA();
+//            lockT.syncA();
+            lockT.syncObjectInstanceLock();
         }, "test1").start();
 
         new Thread(() -> {
@@ -29,9 +33,9 @@ public class LockTest {
 //            lockT.testLock();
 //            lockT.syncBlock();
 //            lockT.syncObjectLock();
-            lockT.syncBlock();
-        }, "test2").start();*/
-        new Thread() {
+            lockT.staticSync();
+        }, "test2").start();
+     /*   new Thread() {
             public void run() {
                 lockT.readLockTest();
             }
@@ -41,7 +45,7 @@ public class LockTest {
             public void run() {
                 lockT.writeLockTest(new Random().nextInt(10000));
             }
-        }.start();
+        }.start();*/
     }
 
     public synchronized void syncA() {
@@ -143,5 +147,29 @@ public class LockTest {
 
     }
 
+
+    public void syncObjectInstanceLock() {
+        //对象锁，同步方法一致，在一起执行时，一个线程获得锁，另一个线程阻塞
+        synchronized (bytes) {   //传入对象的实例
+            //对象锁
+            long startTime = System.currentTimeMillis();
+            while (System.currentTimeMillis() - startTime <= 0.5) {
+                System.out.println(Thread.currentThread() + "正在执行");
+            }
+        }
+        System.out.println(Thread.currentThread() + "执行完毕");
+    }
+
+    public void syncObjectInstanceLock1() {
+        //对象锁，同步方法一致，在一起执行时，一个线程获得锁，另一个线程阻塞
+        synchronized (obj) {   //传入对象的实例
+            //对象锁
+            long startTime = System.currentTimeMillis();
+            while (System.currentTimeMillis() - startTime <= 0.5) {
+                System.out.println(Thread.currentThread() + "正在执行");
+            }
+        }
+        System.out.println(Thread.currentThread() + "执行完毕");
+    }
 
 }

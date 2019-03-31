@@ -1,4 +1,4 @@
-package com.data.com.data.concurrent;
+package com.data.concurrent;
 
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 

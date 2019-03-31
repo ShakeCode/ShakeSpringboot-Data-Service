@@ -1,4 +1,4 @@
-package com.data.com.data.concurrent;
+package com.data.concurrent;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;

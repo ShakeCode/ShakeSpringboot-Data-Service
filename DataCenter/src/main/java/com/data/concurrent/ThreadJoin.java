@@ -1,4 +1,4 @@
-package com.data.com.data.concurrent;
+package com.data.concurrent;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 

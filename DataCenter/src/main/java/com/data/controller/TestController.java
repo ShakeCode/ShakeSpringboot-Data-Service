@@ -71,7 +71,6 @@ public class TestController {
         ConcurrentHashMap<Object,Object> dataSourceConcurrentHashMap = DynamicDataSource.targetDataSourceMap;
 
         System.out.println("-----------------------》dataSourceConcurrentHashMap"+dataSourceConcurrentHashMap);
-
         return userService.getUser();
     }
 

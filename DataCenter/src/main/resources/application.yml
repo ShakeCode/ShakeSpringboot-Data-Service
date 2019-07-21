@@ -50,5 +50,12 @@ spring:
         username: guest
         password: guest
 
+#spring.mail.host=smtp.163.com
+#spring.mail.username=903936584@qq.com
+#spring.mail.password=xxxxxxxxx
+#spring.mail.properties.mail.smtp.auth=true
+#spring.mail.properties.mail.smtp.starttls.enable=true
+#spring.mail.properties.mail.smtp.starttls.required=true
+
 
 

@@ -8,5 +8,11 @@ import java.util.Map;
 @Mapper
 public interface AdminDao {
 
-    List<Map<String,Object>> getAllAdmin();
+    String name = "hello";
+
+    default String getName() {
+        return name;
+    }
+
+    List<Map<String, Object>> getAllAdmin();
 }

@@ -108,11 +108,11 @@
         </dependency>
 
         <!--数据库加密-->
-        <dependency>
+       <!-- <dependency>
             <groupId>com.github.ulisesbocchio</groupId>
             <artifactId>jasypt-spring-boot-starter</artifactId>
             <version>2.1.0</version>
-        </dependency>
+        </dependency>-->
     </dependencies>
 
     <build>

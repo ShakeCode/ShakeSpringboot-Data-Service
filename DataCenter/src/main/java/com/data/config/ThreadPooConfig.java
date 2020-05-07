@@ -10,7 +10,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 public class ThreadPooConfig {
 
     @Bean
-    public ThreadPoolTaskExecutor configThreadPool() {
+    public ThreadPoolTaskExecutor asyncServiceExecutor() {
         ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
         threadPoolTaskExecutor.setCorePoolSize(20);
         threadPoolTaskExecutor.setKeepAliveSeconds(10);

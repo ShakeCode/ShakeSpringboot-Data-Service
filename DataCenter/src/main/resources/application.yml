@@ -1,6 +1,6 @@
 server:
   context-path: /data
-#  port: 80810
+  port: 8019
   
 spring:
     datasource:
@@ -49,6 +49,10 @@ spring:
         port: 5672
         username: guest
         password: guest
+
+sync.init:
+  open: false
+  cron: 0/1 * * * * ?
 
 #spring.mail.host=smtp.163.com
 #spring.mail.username=903936584@qq.com

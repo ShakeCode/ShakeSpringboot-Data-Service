@@ -23,7 +23,7 @@ public class UserService {
 
 
 //    @DS(DataSourceEnum.custer)
-    @Async("asyncServiceExecutor")
+    @Async("taskExecutor")
     @Transactional(rollbackFor=Exception.class)  //指定所有异常回滚操作，事务传播propagation默认是REQUIRED
     public List<Map<String, Object>> getUser() {
         System.out.println("----------------》数据源:" + DataSourceContextHolder.getDB());

@@ -45,7 +45,6 @@ public class TestController {
     @GetMapping("api/admin/all")
     @DS(DataSourceEnum.master)
     List<Map<String,Object>> getAdmin() throws SQLException {
-        int i = 1/0;
         logger.debug("Use DataSource :{} >", DataSourceContextHolder.getDB());
         System.out.println("数据源>>>>>>" + dataSource.getClass());
         Connection connection = dataSource.getConnection();

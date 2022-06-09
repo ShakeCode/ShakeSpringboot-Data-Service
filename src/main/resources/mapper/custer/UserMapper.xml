@@ -5,4 +5,8 @@
     <select id="getAllUser" resultType="java.util.Map" >
         select *  from t_user
     </select>
+
+    <select id="getAllAdminByStream" resultType="java.util.Map" >
+        select *  from t_user
+    </select>
 </mapper>

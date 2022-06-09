@@ -1,11 +1,22 @@
 server:
   context-path: /data
   port: 8019
+    #证书的路径.
+  ssl:
+      #是否开启https
+      enabled: true
+      key-store: classpath:keystore.p12
+      #证书密码，请修改为您自己证书的密码.
+      key-store-password: 475996
+      #秘钥库类型(PKCS12,JKS)
+      key-store-type: PKCS12
+      #证书别名
+      key-alias: tomcat
   
 spring:
     datasource:
         master:
-            url: jdbc:mysql://127.0.0.1:3306/stu_learning_system?useUnicode=true&characterEncoding=utf8&useSSL=false
+            url: jdbc:mysql://localhost:5306/stu_learning_system?autoReconnect=true&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC&useSSL=false
             username: root
             password: root
             driver-class-name: com.mysql.jdbc.Driver
@@ -24,7 +35,7 @@ spring:
             maxOpenPreparedStatements: 20
 
         custer:
-            url: jdbc:mysql://127.0.0.1:3306/onlinemusic?useUnicode=true&characterEncoding=utf8&useSSL=false
+            url: jdbc:mysql://localhost:5306/onlinemusic?autoReconnect=true&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC&useSSL=false
             username: root
             password: root
             driver-class-name: com.mysql.jdbc.Driver

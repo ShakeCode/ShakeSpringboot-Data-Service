@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /*解决占用问题
@@ -21,6 +22,7 @@ taskkill /f /t  /im java.exe*/
 //@EnableEncryptableProperties
 @EnableCaching
 @EnableScheduling
+@EnableAsync
 @SpringBootApplication(scanBasePackages = {"com.data"})
 public class Application {
 

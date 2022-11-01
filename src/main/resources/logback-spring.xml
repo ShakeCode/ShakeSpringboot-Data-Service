@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!--引入默认的配置文件-->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <!--注入application.yaml配置-->
+    <springProperty scope="context" name="LOG_FILE_NAME" source="logging.file.logName"/>
+    <springProperty scope="context" name="LOG_MAX_HISTORY" source="logging.file.max-history"/>
+    <springProperty scope="context" name="LOG_MAX_SIZE" source="logging.file.max-size"/>
+
+    <!--转换规则-可删除-->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+
+    <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
+    <property name="LOG_HOME" value="logs"/>
+
+    <!--
+     日志输出格式：
+         %d表示日期时间，
+         %thread表示线程名，
+         %-5level：级别从左显示5个字符宽度
+         %logger{50} 表示logger名字最长50个字符，否则按照句点分割。
+         %msg：日志消息，
+         %n是换行符
+         %line是行号
+         %method是方法名
+     -->
+    <!--控制台日志输出格式-->
+    <property name="CONSOLE_LOG_PATTERN" value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %line %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+
+    <!--文件日志输出格式-->
+    <property name="FILE_LOG_PATTERN" value="${FILE_LOG_PATTERN:-%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- {faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %line %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+
+    <appender name="CONSOLE_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/${LOG_FILE_NAME}.log</file>
+        <!--日志记录器的滚动策略-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${LOG_FILE_NAME}-%d-log%i.log</fileNamePattern>
+            <!--日志文档保存天数-->
+            <maxHistory>${LOG_MAX_HISTORY}</maxHistory>
+            <!--单日志最大文件大小-->
+            <maxFileSize>${LOG_MAX_SIZE}</maxFileSize>
+            <!--日志最大不超过10GB-->
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+
+        <!-- 此日志文件只记录warn级别的 -->
+       <!-- <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>warn</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>-->
+    </appender>
+
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE_STDOUT" />
+        <appender-ref ref="FILE" />
+    </root>
+
+
+</configuration>

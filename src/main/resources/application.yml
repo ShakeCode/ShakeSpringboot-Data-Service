@@ -14,56 +14,82 @@ server:
       key-alias: tomcat
   
 spring:
-    datasource:
-        master:
-            url: jdbc:mysql://localhost:5306/stu_learning_system?autoReconnect=true&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC&useSSL=false
-            username: root
-            password: root
-            driver-class-name: com.mysql.jdbc.Driver
-            filters: stat
-            maxActive: 300
-            initialSize: 5
-            maxWait: 60000
-            minIdle: 5
-            timeBetweenEvictionRunsMillis: 60000
-            minEvictableIdleTimeMillis: 300000
-            validationQuery: select 'x'
-            testWhileIdle: true
-            testOnBorrow: false
-            testOnReturn: false
-            poolPreparedStatements: true
-            maxOpenPreparedStatements: 20
+  datasource:
+    master:
+      url: jdbc:mysql://localhost:5306/stu_learning_system?autoReconnect=true&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC&useSSL=false
+      username: root
+      password: root
+      driver-class-name: com.mysql.jdbc.Driver
+      filters: stat
+      maxActive: 300
+      initialSize: 5
+      maxWait: 60000
+      minIdle: 5
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 20
 
-        custer:
-            url: jdbc:mysql://localhost:5306/onlinemusic?autoReconnect=true&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC&useSSL=false
-            username: root
-            password: root
-            driver-class-name: com.mysql.jdbc.Driver
-            filters: stat
-            maxActive: 300
-            initialSize: 5
-            maxWait: 60000
-            minIdle: 5
-            timeBetweenEvictionRunsMillis: 60000
-            minEvictableIdleTimeMillis: 300000
-            validationQuery: select 'x'
-            testWhileIdle: true
-            testOnBorrow: false
-            testOnReturn: false
-            poolPreparedStatements: true
-            maxOpenPreparedStatements: 20
-    jackson:
-        date-format: yyyy-MM-dd HH:mm:ss
-        time-zone: GMT+8
-    rabbitmq:
-        host: 127.0.0.1
-        port: 5672
-        username: guest
-        password: guest
+    custer:
+      url: jdbc:mysql://localhost:5306/onlinemusic?autoReconnect=true&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC&useSSL=false
+      username: root
+      password: root
+      driver-class-name: com.mysql.jdbc.Driver
+      filters: stat
+      maxActive: 300
+      initialSize: 5
+      maxWait: 60000
+      minIdle: 5
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 20
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+0
+
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    virtual-host: /
+    username: guest
+    password: guest
+    listener:
+      simple:
+        # 消息握手方式
+        acknowledge-mode: manual
+        # 每次队列获取消息数量
+        prefetch: 250
+        # 开启批量消费
+        consumer-batch-enabled: true
+        # 每次批量消费大小
+        batch-size: 16
+
 
 sync.init:
   open: false
   cron: 0/1 * * * * ?
+
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    #日志级别
+    root: info
+    com.data.dao: debug
+  file:
+    logName: data-service-log
+    max-history: 10
+    max-size: 1KB
+
+spring.main.allow-bean-definition-overriding: true
 
 #spring.mail.host=smtp.163.com
 #spring.mail.username=903936584@qq.com

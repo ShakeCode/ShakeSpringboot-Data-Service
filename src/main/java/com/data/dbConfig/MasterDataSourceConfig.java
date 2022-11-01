@@ -1,15 +1,12 @@
 package com.data.dbConfig;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.util.DruidDataSourceUtils;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -60,11 +57,11 @@ public class MasterDataSourceConfig {
     }
 
     @Bean
-    public DynamicDataSource dataSource(@Qualifier("masterDataSource") DataSource masterDataSource,@Qualifier("custerDataSource") DataSource custerDataSource) {
+    public DynamicDataSource dataSource(@Qualifier("masterDataSource") DataSource masterDataSource, @Qualifier("custerDataSource") DataSource custerDataSource) {
         DynamicDataSource dynamicDataSource = new DynamicDataSource();
-        ConcurrentHashMap<Object,Object> targetDataResources = dynamicDataSource.targetDataSourceMap;
-        targetDataResources.put(DataSourceEnum.master.name(),masterDataSource);
-        targetDataResources.put(DataSourceEnum.custer.name(),custerDataSource);
+        ConcurrentHashMap<Object, Object> targetDataResources = DynamicDataSource.targetDataSourceMap;
+        targetDataResources.put(DataSourceEnum.master.name(), masterDataSource);
+        targetDataResources.put(DataSourceEnum.custer.name(), custerDataSource);
         dynamicDataSource.setDefaultTargetDataSource(masterDataSource);
         dynamicDataSource.setTargetDataSources(targetDataResources);
         dynamicDataSource.afterPropertiesSet();

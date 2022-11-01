@@ -4,8 +4,7 @@ import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
-import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,9 +19,9 @@ public class TomcatHttpConfig {
      * @return embedded servlet container factory
      */
     @Bean
-    public EmbeddedServletContainerFactory servletContainer() {
-        TomcatEmbeddedServletContainerFactory
-                tomcat = new TomcatEmbeddedServletContainerFactory() {
+    public TomcatServletWebServerFactory servletContainer() {
+        TomcatServletWebServerFactory
+                tomcat = new TomcatServletWebServerFactory() {
 
             @Override
             protected void
@@ -45,7 +44,7 @@ public class TomcatHttpConfig {
      * @return Connector
      */
     private Connector initiateHttpConnector() {
-        Connector connector = new Connector(TomcatEmbeddedServletContainerFactory.DEFAULT_PROTOCOL);
+        Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
         connector.setScheme("http");
         // Connector监听的http的端口号
         connector.setPort(8029);

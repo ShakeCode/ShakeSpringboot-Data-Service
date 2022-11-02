@@ -14,6 +14,8 @@ server:
       key-alias: tomcat
   
 spring:
+  application:
+    name: data.center.service
   datasource:
     master:
       url: jdbc:mysql://localhost:5306/stu_learning_system?autoReconnect=true&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC&useSSL=false

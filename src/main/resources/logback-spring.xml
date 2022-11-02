@@ -3,6 +3,7 @@
     <!--引入默认的配置文件-->
     <include resource="org/springframework/boot/logging/logback/defaults.xml" />
     <!--注入application.yaml配置-->
+    <springProperty scope="context" name="springAppName" source="spring.application.name"/>
     <springProperty scope="context" name="LOG_FILE_NAME" source="logging.file.logName"/>
     <springProperty scope="context" name="LOG_MAX_HISTORY" source="logging.file.max-history"/>
     <springProperty scope="context" name="LOG_MAX_SIZE" source="logging.file.max-size"/>
@@ -25,11 +26,13 @@
          %method是方法名
      -->
     <!--控制台日志输出格式-->
-    <property name="CONSOLE_LOG_PATTERN" value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %line %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+    <property name="CONSOLE_LOG_PATTERN" value="%clr([%d{yyyy-MM-dd HH:mm:ss.SSS}]){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) [${springAppName}] %clr(${PID:- }){magenta} %clr([%t])  %clr([%-40.40logger{39}]){cyan} %line %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+
+   <!-- <property name="FILE_LOG_PATTERN" value="${FILE_LOG_PATTERN:-%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } -&#45;&#45; {faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %line %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>-->
 
     <!--文件日志输出格式-->
-    <property name="FILE_LOG_PATTERN" value="${FILE_LOG_PATTERN:-%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- {faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %line %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
-
+    <property name="FILE_LOG_PATTERN" value="[%d{yyyy-MM-dd HH:mm:ss.SSS}]${LOG_LEVEL_PATTERN:-%5p} [${springAppName}] ${PID:- } [%t] [%logger] %L:  %m%n"/>
+    
     <appender name="CONSOLE_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>${CONSOLE_LOG_PATTERN}</pattern>
@@ -38,7 +41,7 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_HOME}/${LOG_FILE_NAME}.log</file>
+        <!--<file>${LOG_HOME}/${LOG_FILE_NAME}.log</file>-->
         <!--日志记录器的滚动策略-->
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${LOG_HOME}/${LOG_FILE_NAME}-%d-log%i.log</fileNamePattern>
@@ -48,6 +51,8 @@
             <maxFileSize>${LOG_MAX_SIZE}</maxFileSize>
             <!--日志最大不超过10GB-->
             <totalSizeCap>10GB</totalSizeCap>
+            <!--启动服务是否删除日志（默认false）-->
+            <cleanHistoryOnStart>false</cleanHistoryOnStart>
         </rollingPolicy>
 
         <encoder>

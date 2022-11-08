@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-<!--        <version>1.5.15.RELEASE</version>-->
+        <!--        <version>1.5.15.RELEASE</version>-->
         <version>2.3.10.RELEASE</version>
         <relativePath/>
     </parent>
@@ -141,12 +141,25 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
+        <!--commons-lang3-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.11</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
+
         <!--数据库加密-->
-       <!-- <dependency>
-            <groupId>com.github.ulisesbocchio</groupId>
-            <artifactId>jasypt-spring-boot-starter</artifactId>
-            <version>2.1.0</version>
-        </dependency>-->
+        <!-- <dependency>
+             <groupId>com.github.ulisesbocchio</groupId>
+             <artifactId>jasypt-spring-boot-starter</artifactId>
+             <version>2.1.0</version>
+         </dependency>-->
     </dependencies>
 
     <build>

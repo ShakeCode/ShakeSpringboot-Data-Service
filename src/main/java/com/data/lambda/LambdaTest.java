@@ -47,8 +47,8 @@ public class LambdaTest {
         System.out.println(predicate.test("fd"));
         Predicate<String> predicate1 = m -> m.equals("hello");
         //传入两个类型参数，返回一个类型结果
-        BiFunction<String,String,Integer> biFunction = (a,b) -> Integer.valueOf(a+b);
-        System.out.println(biFunction.apply("11","22"));
+        BiFunction<String, String, Integer> biFunction = (a, b) -> Integer.valueOf(a + b);
+        System.out.println(biFunction.apply("11", "22"));
     }
 
     private static void testLambda() {

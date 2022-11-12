@@ -28,7 +28,7 @@ public class SpringUtils implements ApplicationContextAware {
      * @param name 参数传入要获取的实例的类名 首字母小写，这是默认的
      * @return
      */
-    public static Object getBean(String name){
+    public static Object getBean(String name) {
         return getApplicationContext().getBean(name);
     }
 
@@ -38,7 +38,7 @@ public class SpringUtils implements ApplicationContextAware {
      * @param <T>
      * @return
      */
-    public static <T> T getBean(Class<T> clazz){
+    public static <T> T getBean(Class<T> clazz) {
         return getApplicationContext().getBean(clazz);
     }
 
@@ -49,7 +49,7 @@ public class SpringUtils implements ApplicationContextAware {
      * @param <T>
      * @return
      */
-    public static <T> T getBean(String name,Class<T> clazz){
+    public static <T> T getBean(String name, Class<T> clazz) {
         return getApplicationContext().getBean(name, clazz);
     }
 }

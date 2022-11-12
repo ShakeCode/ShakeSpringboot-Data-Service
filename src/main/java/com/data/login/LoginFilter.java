@@ -48,7 +48,6 @@ public class LoginFilter implements Filter {
         LOG.info("请求地址:{},{}", request.getRequestURL().toString(), request.getMethod());
         LOG.info("远程地址:{}", request.getRemoteAddr());
         long startTime = System.currentTimeMillis();
-        filterChain.doFilter(servletRequest, servletResponse);
         // 设置主子线程共用的上下文信息
         HeaderContext.setHeaderInfo(
                 HeaderInfo.builder()
@@ -57,6 +56,7 @@ public class LoginFilter implements Filter {
                         .lang(request.getHeader("lang"))
                         .tenantCode(request.getHeader("tenant-code"))
                         .build());
+        filterChain.doFilter(servletRequest, servletResponse);
         LOG.info("------------- LoginFilter end  waste time:{} ms -------------", System.currentTimeMillis() - startTime);
     }
 

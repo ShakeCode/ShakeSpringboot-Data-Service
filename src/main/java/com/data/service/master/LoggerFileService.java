@@ -1,6 +1,5 @@
 package com.data.service.master;
 
-import com.data.model.ResultVO;
 import org.aspectj.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,11 +24,15 @@ import java.util.regex.Pattern;
 public class LoggerFileService {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoggerFileService.class);
 
+    /*对应日志目录-F:\\logs*/
     @Value("${logging.file.path:/logs}")
     private String logFilePath;
 
     @Value("${logging.file.absPath:F:\\ideaWorkplace\\DataCenter\\logs}")
     private String logFileAbsPath;
+
+    @Value("${log.read.limit:3}")
+    private Integer limitLine;
 
     /**
      * Query log content result vo.
@@ -40,16 +43,21 @@ public class LoggerFileService {
         /*FileUrlResource fileUrlResource = new FileUrlResource(logFilePath);
         OutputStream ops = fileUrlResource.getOutputStream();*/
         // File file = new File(logFilePath);
-        File file = new File(logFileAbsPath);
+        File file = new File(logFilePath);
         if (file == null || !file.exists()) {
             return "";
         }
         File[] allLogFile = FileUtil.listFiles(file, (pathName) -> pathName.getName().endsWith(".log"));
         final Pattern pattern = Pattern.compile(word);
         StringBuilder stringBuilder = new StringBuilder();
+        boolean shouldBreak = false;
+        int hasReadLine = 0;
         for (File tempFile : allLogFile) {
             if (tempFile == null || !tempFile.isFile()) {
                 continue;
+            }
+            if (shouldBreak) {
+                break;
             }
             try (FileInputStream fis = new FileInputStream(tempFile);
                  BufferedInputStream bis = new BufferedInputStream(fis);
@@ -59,7 +67,12 @@ public class LoggerFileService {
                 while ((line = br.readLine()) != null) {
                     Matcher matcher = pattern.matcher(line);
                     if (matcher.find()) {
+                        if (hasReadLine >= limitLine) {
+                            shouldBreak = true;
+                            break;
+                        }
                         stringBuilder.append(line).append("\r\n");
+                        hasReadLine += 1;
                     }
                 }
             } catch (FileNotFoundException e) {

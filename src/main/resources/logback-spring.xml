@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+    <!--官网: https://logback.qos.ch/-->
     <!--引入默认的配置文件-->
     <include resource="org/springframework/boot/logging/logback/defaults.xml" />
     <!--注入application.yaml配置-->
@@ -12,7 +13,8 @@
     <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
 
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
-    <property name="LOG_HOME" value="logs"/>
+    <!--/开头则在工程所在本地磁盘系统对应盘符的目录开始创建日志目录, 不是/开头则在本地工程目录下创建日志目录-->
+    <property name="LOG_HOME" value="/logs"/>
 
     <!--
      日志输出格式：

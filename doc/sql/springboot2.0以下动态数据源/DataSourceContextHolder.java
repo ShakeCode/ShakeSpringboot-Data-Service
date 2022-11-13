@@ -29,7 +29,7 @@ public class DataSourceContextHolder {
      * @param dbType the db type
      */
     public static void setDB(String dbType) {
-        LOGGER.info("切换到目标数据源:{}", dbType);
+        LOGGER.debug("切换到{}数据源", dbType);
         CONTEXT_HOLDER.set(dbType);
     }
 

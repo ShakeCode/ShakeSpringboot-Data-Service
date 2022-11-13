@@ -2,7 +2,6 @@ package com.data.aspect;
 
 
 import com.data.annotation.DS;
-import com.data.dbConfig.DataSourceConfig;
 import com.data.dbConfig.DataSourceContextHolder;
 import com.data.dbConfig.DataSourceEnum;
 import org.aspectj.lang.JoinPoint;
@@ -12,8 +11,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +20,6 @@ import java.lang.reflect.Method;
 @Order(0)
 @Component
 public class DynamicDataSourceAspect {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DynamicDataSourceAspect.class);
 
     @Around("@annotation(com.data.annotation.DS)")
     public Object  beforeSwitchDS(ProceedingJoinPoint proceedingJoinPoint){
@@ -46,7 +42,7 @@ public class DynamicDataSourceAspect {
                 dataSource = annotation.value().name();
             }
             // 切换数据源
-            LOGGER.info("------------------>注解数据源dataSource:{}", dataSource);
+            System.out.println("------------------>注解数据源dataSource:"+dataSource);
             DataSourceContextHolder.setDB(dataSource);
             return proceedingJoinPoint.proceed(args); //执行方法
         } catch (Exception e) {

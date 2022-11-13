@@ -1,0 +1,104 @@
+server:
+  context-path: /data
+  port: 8019
+    #证书的路径.
+  ssl:
+      #是否开启https
+      enabled: true
+      key-store: classpath:keystore.p12
+      #证书密码，请修改为您自己证书的密码.
+      key-store-password: 475996
+      #秘钥库类型(PKCS12,JKS)
+      key-store-type: PKCS12
+      #证书别名
+      key-alias: tomcat
+  
+spring:
+  application:
+    name: data.center.service
+  datasource:
+    master:
+      url: jdbc:mysql://localhost:5306/stu_learning_system?autoReconnect=true&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC&useSSL=false
+      username: root
+      password: root
+      driver-class-name: com.mysql.jdbc.Driver
+      filters: stat
+      maxActive: 300
+      initialSize: 5
+      maxWait: 60000
+      minIdle: 5
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 20
+
+    custer:
+      url: jdbc:mysql://localhost:5306/onlinemusic?autoReconnect=true&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC&useSSL=false
+      username: root
+      password: root
+      driver-class-name: com.mysql.jdbc.Driver
+      filters: stat
+      maxActive: 300
+      initialSize: 5
+      maxWait: 60000
+      minIdle: 5
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 20
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+0
+
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    virtual-host: /
+    username: guest
+    password: guest
+    listener:
+      simple:
+        # 消息握手方式
+        acknowledge-mode: manual
+        # 每次队列获取消息数量
+        prefetch: 250
+        # 开启批量消费
+        consumer-batch-enabled: true
+        # 每次批量消费大小
+        batch-size: 16
+
+
+sync.init:
+  open: false
+  cron: 0/1 * * * * ?
+
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    #日志级别
+    root: info
+    com.data.dao: debug
+  file:
+    logName: data-service-log
+    max-history: 10
+    max-size: 1KB
+
+spring.main.allow-bean-definition-overriding: true
+
+#spring.mail.host=smtp.163.com
+#spring.mail.username=903936584@qq.com
+#spring.mail.password=xxxxxxxxx
+#spring.mail.properties.mail.smtp.auth=true
+#spring.mail.properties.mail.smtp.starttls.enable=true
+#spring.mail.properties.mail.smtp.starttls.required=true
+
+
+

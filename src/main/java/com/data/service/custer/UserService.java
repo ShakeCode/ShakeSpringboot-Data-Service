@@ -3,6 +3,8 @@ package com.data.service.custer;
 import com.data.dao.custer.SongDao;
 import com.data.dao.custer.UserDao;
 import com.data.dbConfig.DataSourceContextHolder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import java.util.Map;
 @Service("user-service")
 //@Slf4j
 public class UserService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     private UserDao userDao;
@@ -22,13 +25,12 @@ public class UserService {
     private SongDao songDao;
 
 
-//    @DS(DataSourceEnum.custer)
-    @Async("taskExecutor")
-    @Transactional(rollbackFor=Exception.class)  //指定所有异常回滚操作，事务传播propagation默认是REQUIRED
+    // @DS(DataSourceEnum.custer)
+    // @Async("taskExecutor")
+    @Transactional(rollbackFor = Exception.class)  //指定所有异常回滚操作，事务传播propagation默认是REQUIRED
     public List<Map<String, Object>> getUser() {
-        System.out.println("----------------》数据源:" + DataSourceContextHolder.getDB());
-//        return userDao.getAllUser();
-
+        LOGGER.info("----------------》数据源:{}", DataSourceContextHolder.getDB());
+        // return userDao.getAllUser();
         return songDao.getAllSong();
     }
 

@@ -18,15 +18,7 @@ public class InterceptorConfig {
     }
 
     @Bean
-    public Interceptor custerSqlInterceptor(@Qualifier("custerSqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
-        Properties properties = new Properties();
-        this.interceptor.setProperties(properties);
-        sqlSessionFactory.getConfiguration().addInterceptor(this.interceptor);
-        return this.interceptor;
-    }
-
-    @Bean
-    public Interceptor masterSqlInterceptor(@Qualifier("masterSqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
+    public Interceptor custerSqlInterceptor(@Qualifier("sqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
         Properties properties = new Properties();
         this.interceptor.setProperties(properties);
         sqlSessionFactory.getConfiguration().addInterceptor(this.interceptor);

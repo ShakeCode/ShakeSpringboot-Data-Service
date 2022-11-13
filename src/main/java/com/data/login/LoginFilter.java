@@ -57,7 +57,7 @@ public class LoginFilter implements Filter {
                         .tenantCode(request.getHeader("tenant-code"))
                         .build());
         filterChain.doFilter(servletRequest, servletResponse);
-        LOG.info("------------- LoginFilter end  waste time:{} ms -------------", System.currentTimeMillis() - startTime);
+        LOG.info("------------- LoginFilter end, url: {}  waste time:{} ms -------------", request.getRequestURL().toString(), System.currentTimeMillis() - startTime);
     }
 
     /**

@@ -10,6 +10,8 @@ import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.Properties;
@@ -25,6 +27,8 @@ import java.util.Properties;
 )})
 @Component
 public class MybatisSqlInterceptor implements Interceptor {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MybatisSqlInterceptor.class);
+
     public MybatisSqlInterceptor() {
     }
 
@@ -32,9 +36,9 @@ public class MybatisSqlInterceptor implements Interceptor {
     public Object intercept(Invocation invocation) throws Throwable {
         Object[] queryArgs = invocation.getArgs();
         String name = invocation.getMethod().getName();
-        System.out.println("==== >> 执行sql方法:" + name);
+        LOGGER.info("====>> 执行sql方法:{}", name);
         MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
-        System.out.println("==== >> 执行sql方法路径:" + mappedStatement.getId());
+        LOGGER.info("====>> 执行sql方法路径:{}", mappedStatement.getId());
         Object parameter = null;
         if (invocation.getArgs().length > 1) {
             parameter = invocation.getArgs()[1];
@@ -42,11 +46,11 @@ public class MybatisSqlInterceptor implements Interceptor {
 
         BoundSql boundSql = mappedStatement.getBoundSql(parameter);
         String sql = boundSql.getSql();
-        System.out.println("==== >> 执行sql：" + sql);
+        LOGGER.info("====>> 执行sql:{}", sql);
         long startTimeMillis = System.currentTimeMillis();
         Object proceedReslut = invocation.proceed();
         long endTimeMillis = System.currentTimeMillis();
-        System.out.println("==== >> sql 执行耗时：" + (endTimeMillis - startTimeMillis) / 1000L + "s");
+        LOGGER.info("====>> sql 执行耗时:{}", (endTimeMillis - startTimeMillis) / 1000L + "s");
         return proceedReslut;
     }
 

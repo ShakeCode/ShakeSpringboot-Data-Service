@@ -24,9 +24,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
-@Api(value="单元测试相关的api",description = "单元测试相关的api")
+@Api(value = "单元测试相关的api", description = "单元测试相关的api")
 public class TestController {
-
     private static final Logger logger = LoggerFactory.getLogger(TestController.class);
 
     @Autowired
@@ -44,13 +43,13 @@ public class TestController {
     @ApiOperation(value = "获取所有管理员")
     @GetMapping("api/admin/all")
     @DS(DataSourceEnum.master)
-    List<Map<String,Object>> getAdmin() throws SQLException {
+    List<Map<String, Object>> getAdmin() throws SQLException {
         logger.debug("Use DataSource :{} >", DataSourceContextHolder.getDB());
-        System.out.println("数据源>>>>>>" + dataSource.getClass());
+        logger.info("数据源>>>>>> {}", dataSource.getClass());
         Connection connection = dataSource.getConnection();
 
-        System.out.println("连接>>>>>>>>>" + connection);
-        System.out.println("连接地址>>>>>" + connection.getMetaData().getURL());
+        logger.info("连接>>>>>>>>> {}", connection);
+        logger.info("连接地址>>>>> {}", connection.getMetaData().getURL());
         connection.close();
 
         return adminDao.getAllAdmin();
@@ -59,17 +58,17 @@ public class TestController {
     @ApiOperation(value = "获取所有用户")
     @GetMapping("api/user/all")
     @DS(DataSourceEnum.custer)
-    List<Map<String,Object>> getUser() throws SQLException {
-        System.out.println("数据源>>>>>>" + dataSource.getClass());
+    List<Map<String, Object>> getUser() throws SQLException {
+        logger.info("数据源>>>>>> {}", dataSource.getClass());
         Connection connection = dataSource.getConnection();
 
-        System.out.println("连接>>>>>>>>>" + connection);
-        System.out.println("连接地址>>>>>" + connection.getMetaData().getURL());
+        logger.info("连接>>>>>>>>> {}", connection);
+        logger.info("连接地址>>>>> {}", connection.getMetaData().getURL());
         connection.close();
 
-        ConcurrentHashMap<Object,Object> dataSourceConcurrentHashMap = DynamicDataSource.targetDataSourceMap;
+        ConcurrentHashMap<Object, Object> dataSourceConcurrentHashMap = DynamicDataSource.targetDataSourceMap;
 
-        System.out.println("-----------------------》dataSourceConcurrentHashMap"+dataSourceConcurrentHashMap);
+        logger.info("-----------------------》dataSourceConcurrentHashMap:{}", dataSourceConcurrentHashMap);
         return userService.getUser();
     }
 

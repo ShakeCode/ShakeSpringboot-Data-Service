@@ -22,8 +22,4 @@ public class DynamicDatasourceProperty {
     private String username;
 
     private String password;
-
-    private String mapperDaoPath;
-
-    private String mapper;
 }

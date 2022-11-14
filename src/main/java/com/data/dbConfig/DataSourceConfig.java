@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 /**
  * The type Data source config.
  */
-@MapperScan(basePackages = "com.data.dao", sqlSessionFactoryRef = "sqlSessionFactory")
+@MapperScan(basePackages = "${spring.datasource.mapper-dao-path}", sqlSessionFactoryRef = "sqlSessionFactory")
 @Configuration
 public class DataSourceConfig implements InitializingBean {
     private static final Logger LOGGER = LoggerFactory.getLogger(DataSourceConfig.class);
@@ -88,7 +88,9 @@ public class DataSourceConfig implements InitializingBean {
         sqlSessionFactoryBean.setDataSource(this.dynamicDataSource());
         // mybatis的xml文件中需要写类的全限定名,较繁琐,可以配置自动扫描包路径给类配置别名(可逗号分开)
         // sqlSessionFactoryBean.setTypeAliasesPackage("com.data.model,com.data.entity");
-        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/*/*.xml"));
+        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(datasourceConfig.getMapperLocationPath()));
+        // 添加mybatis-config路径
+
         return sqlSessionFactoryBean.getObject();
     }
 

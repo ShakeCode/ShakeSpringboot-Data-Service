@@ -14,6 +14,10 @@ import java.util.List;
 @Component
 @ConfigurationProperties(prefix = "spring.datasource")
 public class DynamicDatasourcePropertyConfig {
+    private String mapperDaoPath;
+
+    private String mapperLocationPath;
+
     private List<DynamicDatasourceProperty> ds = new ArrayList<>();
 
     /*HikariDataSource使用*/
@@ -50,5 +54,21 @@ public class DynamicDatasourcePropertyConfig {
     private boolean testOnReturn;
 
     private boolean testWhileIdle;
+
+    private boolean poolPreparedStatements;
+
+    private Integer maxOpenPreparedStatements;
+
+    private Integer connectionErrorRetryAttempts;
+
+    private boolean breakAfterAcquireFailure;
+
+    private Integer timeBetweenConnectErrorMillis;
+
+    private boolean removeAbandoned;
+
+    private Integer removeAbandonedTimeout;
+
+    private Integer transactionQueryTimeout;
     /*DruidDataSource使用*/
 }

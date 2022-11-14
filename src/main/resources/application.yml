@@ -18,6 +18,10 @@ spring:
     name: data.center.service
   datasource:
     switch: true
+    #dao层包路径
+    mapper-dao-path: com.data.dao
+    #mapper-xml路径
+    mapper-location-path: classpath*:mapper/*/*.xml
     ds:
       - key: master
         # 数据源类型
@@ -28,20 +32,16 @@ spring:
         url: jdbc:mysql://localhost:5306/stu_learning_system?autoReconnect=true&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC&useSSL=false&connectTimeout=1000&socketTimeout=3000
         username: root
         password: root
-        mapper-dao-path: com.data.dao.master
-        mapper: classpath*:mapper/master/*.xml
 
       - key: custer
         # 数据源类型
-        #type: com.zaxxer.hikari.HikariDataSource
-        type: com.alibaba.druid.pool.DruidDataSource
+        type: com.zaxxer.hikari.HikariDataSource
+        #type: com.alibaba.druid.pool.DruidDataSource
         #driver-class-name: com.mysql.jdbc.Driver
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://localhost:5306/onlinemusic?autoReconnect=true&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC&useSSL=false&connectTimeout=1000&socketTimeout=3000
         username: root
         password: root
-        mapper-dao-path: com.data.dao.custer
-        mapper: classpath*:mapper/custer/*.xml
 
     # 初始连接数
     initial-size: 5

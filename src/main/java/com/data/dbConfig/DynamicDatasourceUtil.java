@@ -85,6 +85,38 @@ public class DynamicDatasourceUtil {
         druidDataSource.setTestOnReturn(datasourceConfig.isTestOnReturn());
         // 失效连接检测
         druidDataSource.setTestWhileIdle(datasourceConfig.isTestWhileIdle());
+
+        if (Objects.nonNull(datasourceConfig.getMaxOpenPreparedStatements())) {
+            druidDataSource.setMaxOpenPreparedStatements(datasourceConfig.getMaxOpenPreparedStatements());
+        }
+
+        if (Objects.nonNull(datasourceConfig.isPoolPreparedStatements())) {
+            druidDataSource.setPoolPreparedStatements(datasourceConfig.isPoolPreparedStatements());
+        }
+
+        if (Objects.nonNull(datasourceConfig.getConnectionErrorRetryAttempts())) {
+            druidDataSource.setConnectionErrorRetryAttempts(datasourceConfig.getConnectionErrorRetryAttempts());
+        }
+
+        if (Objects.nonNull(datasourceConfig.isBreakAfterAcquireFailure())) {
+            druidDataSource.setBreakAfterAcquireFailure(datasourceConfig.isBreakAfterAcquireFailure());
+        }
+
+        if (Objects.nonNull(datasourceConfig.getTimeBetweenConnectErrorMillis())) {
+            druidDataSource.setTimeBetweenConnectErrorMillis(datasourceConfig.getTimeBetweenConnectErrorMillis());
+        }
+
+        if (Objects.nonNull(datasourceConfig.isRemoveAbandoned())) {
+            druidDataSource.setRemoveAbandoned(datasourceConfig.isRemoveAbandoned());
+        }
+
+        if (Objects.nonNull(datasourceConfig.getRemoveAbandonedTimeout())) {
+            druidDataSource.setRemoveAbandonedTimeout(datasourceConfig.getRemoveAbandonedTimeout());
+        }
+
+        if (Objects.nonNull(datasourceConfig.getTransactionQueryTimeout())) {
+            druidDataSource.setTransactionQueryTimeout(datasourceConfig.getTransactionQueryTimeout());
+        }
         return druidDataSource;
     }
 

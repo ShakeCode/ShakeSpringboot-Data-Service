@@ -8,8 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -26,6 +28,7 @@ public class DynamicDatasourceUtil {
      * Create datasource.
      * @param datasourceConfig the datasource config
      * @param property         the property
+     * @return the data source
      */
     public synchronized static DataSource createDatasource(DynamicDatasourcePropertyConfig datasourceConfig, DynamicDatasourceProperty property) {
         if (DynamicDatasourceUtil.DATASOURCES.containsKey(property.getKey())) {
@@ -116,6 +119,25 @@ public class DynamicDatasourceUtil {
 
         if (Objects.nonNull(datasourceConfig.getTransactionQueryTimeout())) {
             druidDataSource.setTransactionQueryTimeout(datasourceConfig.getTransactionQueryTimeout());
+        }
+
+        if (Objects.nonNull(datasourceConfig.getFilters())) {
+            try {
+                druidDataSource.setFilters(datasourceConfig.getFilters());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (Objects.nonNull(datasourceConfig.getConnectionProperties())) {
+            Properties properties = new Properties();
+            // druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+            String[] propertyArray = datasourceConfig.getConnectionProperties().split(";");
+            for (int i = 0; i < propertyArray.length; i++) {
+                String[] targetPropertyArray = propertyArray[i].split("=");
+                properties.put("" + targetPropertyArray[0], targetPropertyArray[1]);
+            }
+            druidDataSource.setConnectProperties(properties);
         }
         return druidDataSource;
     }

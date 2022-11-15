@@ -70,5 +70,11 @@ public class DynamicDatasourcePropertyConfig {
     private Integer removeAbandonedTimeout;
 
     private Integer transactionQueryTimeout;
+
+    // 配置监控统计拦截的filters,去掉后监控界面sql无法统计,'wall'用于防火墙
+    private String filters;
+
+    // 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    private String connectionProperties;
     /*DruidDataSource使用*/
 }

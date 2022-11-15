@@ -93,6 +93,16 @@ logging:
 
 spring.main.allow-bean-definition-overriding: true
 
+#mybaitis配置
+mybatis:
+  type-aliases-package: com.data.model,com.data.entity
+  #可以不配置
+  #config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mapper/*.xml
+  #mybatis缓存
+  configuration:
+    cache-enabled: true
+
 #spring.mail.host=smtp.163.com
 #spring.mail.username=903936584@qq.com
 #spring.mail.password=xxxxxxxxx

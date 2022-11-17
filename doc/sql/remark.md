@@ -23,3 +23,10 @@ https://github.com/alibaba/easyexcel
 
 ```
 ![img_2.png](img_2.png)
+
+### freemarker
+1. https://geek-docs.com/spring-boot/spring-boot-tutorials/spring-boot-freemarker.html
+2. 官网: https://freemarker.apache.org/
+3. http://freemarker.foofun.cn/
+
+![img_3.png](img_3.png)

@@ -224,6 +224,12 @@
             <version>1.2.51</version>
         </dependency>
 
+        <!-- freemarker -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+
         <!--数据库加密-->
         <!-- <dependency>
              <groupId>com.github.ulisesbocchio</groupId>

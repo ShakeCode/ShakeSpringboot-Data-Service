@@ -43,7 +43,7 @@ public class GlobalExceptionHandler {
         logger.error("************************异常开始*******************************");
         logger.error("请求异常了:", ex);
         logger.error("请求地址：" + request.getRequestURL());
-        Enumeration enumeration = request.getParameterNames();
+       /* Enumeration enumeration = request.getParameterNames();
         logger.error("请求参数");
         while (enumeration.hasMoreElements()) {
             String name = enumeration.nextElement().toString();
@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
         StackTraceElement[] error = ex.getStackTrace();
         for (StackTraceElement stackTraceElement : error) {
             logger.error(stackTraceElement.toString());
-        }
+        }*/
         logger.error("************************异常结束*******************************");
     }
 }

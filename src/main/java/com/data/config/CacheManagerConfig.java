@@ -40,6 +40,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 /**
@@ -92,6 +93,7 @@ public class CacheManagerConfig extends CachingConfigurerSupport {
         om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
         // 日期序列化处理
         om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        om.setTimeZone(TimeZone.getTimeZone("UTC"));
         om.registerModule(new Jdk8Module())
                 .registerModule(new JavaTimeModule())
                 .registerModule(new ParameterNamesModule());
@@ -125,6 +127,7 @@ public class CacheManagerConfig extends CachingConfigurerSupport {
         ObjectMapper om = new ObjectMapper();
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        om.setTimeZone(TimeZone.getTimeZone("UTC"));
         jackson2JsonRedisSerializer.setObjectMapper(om);
 
         // 配置序列化（解决乱码的问题）,过期时间30秒
@@ -163,17 +166,17 @@ public class CacheManagerConfig extends CachingConfigurerSupport {
         CacheErrorHandler cacheErrorHandler = new CacheErrorHandler() {
             @Override
             public void handleCacheGetError(RuntimeException e, Cache cache, Object key) {
-                LOGGER.info("缓存获取异常：" + key);
+                LOGGER.error("缓存获取异常：" + key);
             }
 
             @Override
             public void handleCachePutError(RuntimeException e, Cache cache, Object key, Object value) {
-                LOGGER.info("缓存添加异常：" + key);
+                LOGGER.error("缓存添加异常：" + key);
             }
 
             @Override
             public void handleCacheEvictError(RuntimeException e, Cache cache, Object key) {
-                LOGGER.info("缓存删除异常：" + key);
+                LOGGER.error("缓存删除异常：" + key);
             }
 
             @Override

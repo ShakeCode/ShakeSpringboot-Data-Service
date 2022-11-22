@@ -47,7 +47,7 @@ public class CacheController {
      * cacheNames：缓存名称   和 ehcache.xml的声明一致
      * key：缓存键
      * cacheManager：缓存管理器，支持ehcache和redis，若不添加该属性默认缓存到redis
-     * 可选参数：
+     * 可选参数：   (未指定时, springboot根据缓存类型 进行多级缓存)
      * 1.CacheManagerConfig.CacheManagerNames.EHCACHE_CACHE_MANAGER、
      * 2.CacheManagerConfig.CacheManagerNames.REDIS_CACHE_MANAGER
      * unless：条件判断，代码给出的条件是结果不为null才加入到缓存
@@ -76,6 +76,21 @@ public class CacheController {
         String result = "cache:" + code;
         LOGGER.info("redis Cache data:{}", result);
         return result;
+    }
+
+    /**
+     * Gets second cache.
+     * @param code the code
+     * @return the second cache
+     */
+    @Cacheable(key = "#code", value = "mutil_cache_user")
+    @RequestMapping("/mutil/cache/get")
+    @ResponseBody
+    public DictDO getSecondCache(String code) {
+        LOGGER.error("ehcache dir:{}", System.getProperty("java.io.tmpdir/ehcache-rmi-4000"));
+        DictDO tbCache = new DictDO(code, "new redis data", new Date());
+        LOGGER.info("mutil Cache data:{}", tbCache);
+        return tbCache;
     }
 
     /**

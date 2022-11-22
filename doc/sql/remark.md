@@ -33,3 +33,5 @@ https://github.com/alibaba/easyexcel
 
 ### ehcache
 1. 官网: https://www.ehcache.org/documentation/
+2. 分布式缓存: https://www.cnblogs.com/kidezyq/p/9243878.html
+3. https://blog.csdn.net/weixin_30546933/article/details/98150578?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EESLANDING%7Edefault-2-98150578-blog-126363255.pc_relevant_landingrelevant&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EESLANDING%7Edefault-2-98150578-blog-126363255.pc_relevant_landingrelevant&utm_relevant_index=5

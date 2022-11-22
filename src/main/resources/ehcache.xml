@@ -7,7 +7,8 @@
          xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
 
     <!--磁盘路径，内存满了存放位置-->
-    <diskStore path="java.io.tmpdir/ehcache-rmi-4000"/>
+    <!--<diskStore path="java.io.tmpdir/ehcache-rmi-4000"/>-->
+    <diskStore path="d:/app/ehcache"/>
 
 
     <!-- 默认缓存 -->
@@ -85,5 +86,17 @@
            memoryStoreEvictionPolicy="LRU">
     </cache>
 
+    <cache name="mutil_cache_user"
+           maxElementsInMemory="1000"
+           eternal="false"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="120"
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="30"
+           maxElementsOnDisk="10000000"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds="120"
+           memoryStoreEvictionPolicy="LRU">
+    </cache>
 
 </ehcache>

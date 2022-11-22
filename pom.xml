@@ -97,10 +97,17 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
-        <!-- 缓存EhCache -->
+        <!-- 缓存EhCache 2.10.6-->
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
+        </dependency>
+
+        <!--ehcache 3.0以上-->
+        <dependency>
+            <groupId>org.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>3.8.0</version>
         </dependency>
 
         <!--开启缓存支持-->

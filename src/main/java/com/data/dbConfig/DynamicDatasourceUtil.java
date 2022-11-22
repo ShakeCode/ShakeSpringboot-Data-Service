@@ -89,6 +89,10 @@ public class DynamicDatasourceUtil {
         // 失效连接检测
         druidDataSource.setTestWhileIdle(datasourceConfig.isTestWhileIdle());
 
+        // 保活检测, 减少字节传输超时的死连接
+        druidDataSource.setKeepAlive(true);
+        druidDataSource.setKillWhenSocketReadTimeout(true);
+
         if (Objects.nonNull(datasourceConfig.getMaxOpenPreparedStatements())) {
             druidDataSource.setMaxOpenPreparedStatements(datasourceConfig.getMaxOpenPreparedStatements());
         }

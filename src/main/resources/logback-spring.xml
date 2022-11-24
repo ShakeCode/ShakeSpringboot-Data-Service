@@ -54,7 +54,7 @@
             <!--日志最大不超过10GB-->
             <totalSizeCap>10GB</totalSizeCap>
             <!--启动服务是否删除日志（默认false）-->
-            <cleanHistoryOnStart>false</cleanHistoryOnStart>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
 
         <encoder>

@@ -1,28 +1,26 @@
 package com.data.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * The type Person.
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Person {
     private String name;
     private Integer age;
 
-    public Person() {
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public Integer getAge() {
-        return this.age;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
+    /**
+     * Equals boolean.
+     * @param o the o
+     * @return the boolean
+     */
     @Override
     public boolean equals(Object o) {
         if (o == this) {
@@ -59,10 +57,19 @@ public class Person {
         }
     }
 
+    /**
+     * Can equal boolean.
+     * @param other the other
+     * @return the boolean
+     */
     protected boolean canEqual(Object other) {
         return other instanceof Person;
     }
 
+    /**
+     * Hash code int.
+     * @return the int
+     */
     @Override
     public int hashCode() {
         Object $name = this.getName();
@@ -72,6 +79,10 @@ public class Person {
         return result;
     }
 
+    /**
+     * To string string.
+     * @return the string
+     */
     @Override
     public String toString() {
         return "Person(name=" + this.getName() + ", age=" + this.getAge() + ")";

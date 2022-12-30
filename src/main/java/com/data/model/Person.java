@@ -16,6 +16,23 @@ public class Person {
     private String name;
     private Integer age;
 
+    private int sex;
+
+    private String phone;
+
+    private String address;
+
+
+    /**
+     * Instantiates a new Person.
+     * @param name the name
+     * @param age  the age
+     */
+    public Person(String name, Integer age) {
+        this.name = name;
+        this.age = age;
+    }
+
     /**
      * Equals boolean.
      * @param o the o
@@ -77,14 +94,5 @@ public class Person {
         Object $age = this.getAge();
         result = result * 59 + ($age == null ? 43 : $age.hashCode());
         return result;
-    }
-
-    /**
-     * To string string.
-     * @return the string
-     */
-    @Override
-    public String toString() {
-        return "Person(name=" + this.getName() + ", age=" + this.getAge() + ")";
     }
 }

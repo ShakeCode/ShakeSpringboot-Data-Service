@@ -25,6 +25,7 @@ import java.io.Writer;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -224,11 +225,11 @@ public class CSVUtils {
      * @param args the input arguments
      */
     public static void main(String[] args) {
-       /* List<String[]> dataList = new ArrayList<>();
+        List<String[]> dataList = new ArrayList<>();
         for (int i = 0; i < 1000000; i++) {
             dataList.add(new String[]{"15018268060" + i, "20201130新增"});
         }
-        CSVUtils.writeCSV2File("d:\\20201130黑名单.csv", new String[]{"号码", "备注"}, dataList);*/
-        System.out.println(GsonUtil.toJson(CSVUtils.readCSV(new File("d:\\黑名单2030.csv"))));
+        CSVUtils.writeCSV2File("d:\\20201130黑名单.csv", new String[]{"号码", "备注"}, dataList);
+        System.out.println(GsonUtil.toJson(CSVUtils.readCSV(new File("d:\\20201130黑名单.csv"))));
     }
 }

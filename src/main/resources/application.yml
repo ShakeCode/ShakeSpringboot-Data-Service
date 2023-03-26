@@ -129,6 +129,21 @@ spring:
         consumer-batch-enabled: true
         # 每次批量消费大小
         batch-size: 16
+        
+  #邮箱发送
+  mail:
+    protocol: smtp
+    default-encoding: UTF-8
+    host: smtp.qq.com
+    username: 303936584@qq.com
+    password:
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
 
 
 sync.init:

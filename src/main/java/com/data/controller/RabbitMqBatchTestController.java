@@ -2,6 +2,7 @@ package com.data.controller;
 
 import com.data.model.ResultVO;
 import com.data.rabbitMqConfig.dead_letter_delay.OrderInfo;
+import com.data.rabbitMqConfig.dead_letter_delay.RabbitDeadLetterCaseConfig;
 import com.data.rabbitMqConfig.dead_letter_delay.RabbitOrderDelayListener;
 import com.data.util.GsonUtil;
 import io.swagger.annotations.Api;
@@ -74,14 +75,18 @@ public class RabbitMqBatchTestController {
      */
     @ApiOperation("商品下单-延迟X分钟取消")
     @GetMapping("/delay/order/msg")
-    public ResultVO<String> sendTestQueueWithExpiration(@RequestParam("delayMinute") Integer delayMinute) {
+    public ResultVO<String> sendTestQueueWithExpiration(@RequestParam(value = "delayMinute", defaultValue = "1") Integer delayMinute) {
         logger.info("用户开始预下单商品...");
         OrderInfo orderInfo = OrderInfo.builder().orderId(14345497941231649L).orderType("优惠下单").orderMsg("已下单，注意出货商品").createDate(new Date()).build();
+        // 发送延迟订单取消消息
         rabbitTemplate.convertAndSend(RabbitOrderDelayListener.ORDER_EXCHANGE, RabbitOrderDelayListener.ORDER_KEY, GsonUtil.toJson(orderInfo), msg -> {
-            // 过期时间X秒 变为死信消息 进入死信交换机
+            // 过期时间X秒（优先级按照死信队列属性ttl为先） 变为死信消息 进入死信交换机
             msg.getMessageProperties().setExpiration(String.valueOf(delayMinute * 60 * 1000));
             return msg;
         });
+
+        // 发送订单消息
+        rabbitTemplate.convertAndSend(RabbitDeadLetterCaseConfig.SHOP_ORDER_EXCHANGE, RabbitDeadLetterCaseConfig.SHOP_ORDER_KEY, GsonUtil.toJson(orderInfo));
         return ResultVO.success("下单成功");
     }
 

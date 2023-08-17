@@ -24,6 +24,7 @@ public class MyWebConfig extends WebMvcConfigurerAdapter {
 
     /**
      * Add resource handlers.
+     *
      * @param registry the registry
      * @description:
      * @author cheng
@@ -34,5 +35,8 @@ public class MyWebConfig extends WebMvcConfigurerAdapter {
         log.info("配置静态资源所在目录");
         // 和页面有关的静态目录都放在项目的static目录下
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        // 新版swagger需添加
+        registry.addResourceHandler("/swagger-ui/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/");
     }
 }

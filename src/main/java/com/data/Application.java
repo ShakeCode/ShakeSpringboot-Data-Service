@@ -10,6 +10,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import java.net.InetAddress;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -34,7 +35,7 @@ public class Application {
 
     private static ConfigurableApplicationContext configurableApplicationContext;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         LOGGER.error("现在的0时区时间:{}", new Date());
         configurableApplicationContext = SpringApplication.run(Application.class, args);
@@ -43,5 +44,18 @@ public class Application {
 //        ClassPathXmlApplicationContext
         System.out.println("user-service bean:" + configurableApplicationContext.getBean(UserService.class));
         System.out.println("user-service bean:" + configurableApplicationContext.getBean("user-service"));
+        printDocAddress(configurableApplicationContext);
+    }
+
+    private static void printDocAddress(ConfigurableApplicationContext configurableApplicationContext) throws Exception {
+        String ip = InetAddress.getLocalHost().getHostAddress();
+        System.out.println("================================================================================================================");
+        System.out.println(
+                "         旧版接口文檔地址:  " + "https://" + ip + ":" + configurableApplicationContext.getEnvironment().getProperty("server.port") + "/swagger-ui.html"
+        );
+        System.out.println(
+                "         新版接口文檔地址:  " + "https://" + ip + ":" + configurableApplicationContext.getEnvironment().getProperty("server.port") + "/swagger-ui/index.html"
+        );
+        System.out.println("================================================================================================================");
     }
 }
